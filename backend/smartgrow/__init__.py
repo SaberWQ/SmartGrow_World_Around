@@ -1,0 +1,3 @@
+"""
+SmartGrow - Django Project Package
+"""

@@ -1,0 +1,961 @@
+"use client"
+
+// ============================================
+// SmartGrow SecureAI - Система багатомовності
+// Підтримувані мови: Українська, Румунська, Англійська, Іспанська
+// ============================================
+
+export type Language = 'uk' | 'ro' | 'en' | 'es'
+
+export const languages = {
+  uk: { name: 'Українська', flag: '🇺🇦' },
+  ro: { name: 'Română', flag: '🇷🇴' },
+  en: { name: 'English', flag: '🇬🇧' },
+  es: { name: 'Español', flag: '🇪🇸' }
+}
+
+export const translations = {
+  uk: {
+    // Navigation / Навігація
+    plant: 'Рослина',
+    tasks: 'Завдання',
+    data: 'Дані',
+    aiChat: 'AI Чат',
+    shop: 'Магазин',
+    security: 'Безпека',
+    settings: 'Налаштування',
+    
+    // Welcome / Привітання
+    welcomeBack: 'Вітаємо, Городнику!',
+    plantHappyHealthy: 'Ваша рослина щаслива та здорова сьогодні',
+    
+    // Plant Stats / Статистика рослини
+    health: 'Здоров\'я',
+    mood: 'Настрій',
+    trustScore: 'Рівень довіри',
+    level: 'Рівень',
+    
+    // Moods / Настрої
+    happy: 'Щаслива',
+    content: 'Задоволена',
+    thirsty: 'Спрагла',
+    sick: 'Хвора',
+    sleeping: 'Спить',
+    excited: 'Захоплена',
+    
+    // Quick Actions / Швидкі дії
+    quickActions: 'Швидкі дії',
+    water: 'Полив',
+    stopWater: 'Зупинити',
+    uvLightOn: 'УФ Світло ВКЛ',
+    uvLightOff: 'УФ Світло ВИКЛ',
+    
+    // Environment / Середовище
+    environment: 'Середовище',
+    temperature: 'Температура',
+    humidity: 'Вологість',
+    soilMoisture: 'Вологість ґрунту',
+    phLevel: 'Рівень pH',
+    ecLevel: 'Рівень EC',
+    npkLevel: 'Рівень NPK',
+    viewAllData: 'Переглянути всі дані',
+    
+    // Leafy Messages / Повідомлення Ліфі
+    leafySays: 'Ліфі каже:',
+    leafyHappy: 'Дякую за турботу! Я почуваюся чудово сьогодні!',
+    leafyThirsty: 'Мені потрібна вода, будь ласка!',
+    leafySick: 'Мені потрібна допомога, перевірте сенсори!',
+    
+    // Security / Безпека
+    securityCenter: 'Центр безпеки',
+    aiPoweredProtection: 'AI-захист Zero-Trust',
+    overallTrustScore: 'Загальний рівень довіри',
+    threatLevel: 'Рівень загрози',
+    devicesOnline: 'Пристроїв онлайн',
+    lastScan: 'Останнє сканування',
+    low: 'Низький',
+    medium: 'Середній',
+    high: 'Високий',
+    critical: 'Критичний',
+    secure: 'Захищено',
+    allDevicesSecured: 'Всі пристрої захищені',
+    nextScanIn: 'Наступне сканування через',
+    threatActivity: 'Активність загроз (24г)',
+    recentThreats: 'Останні загрози',
+    viewAllThreats: 'Переглянути всі загрози',
+    securityActions: 'Дії безпеки',
+    scanNow: 'Сканувати зараз',
+    runSecurityScan: 'Запустити сканування',
+    quarantineDevice: 'Карантин пристрою',
+    isolateSuspicious: 'Ізолювати підозрілий пристрій',
+    viewLogs: 'Переглянути логи',
+    securityEventLogs: 'Логи подій безпеки',
+    firewallRules: 'Правила фаєрволу',
+    manageAccessRules: 'Керувати правилами доступу',
+    attackSimulator: 'Симулятор атак',
+    testDefenses: 'Перевірте захист вашої теплиці',
+    simulateAttack: 'Симулювати атаку',
+    stopSimulation: 'Зупинити симуляцію',
+    
+    // Triple Encryption / Потрійна шифрація
+    tripleEncryption: 'Потрійна шифрація',
+    bankGradeProtection: 'Банківський рівень захисту',
+    encryptionLayer1: 'Рівень 1: AES-256-GCM',
+    encryptionLayer2: 'Рівень 2: ChaCha20-Poly1305',
+    encryptionLayer3: 'Рівень 3: RSA-4096 + ECDSA',
+    encryptionStatus: 'Статус шифрації',
+    encryptionActive: 'Шифрація активна',
+    dataEncrypted: 'Дані зашифровані',
+    keyRotation: 'Ротація ключів',
+    lastKeyRotation: 'Остання ротація ключів',
+    nextKeyRotation: 'Наступна ротація',
+    viewEncryptionDetails: 'Деталі шифрації',
+    encryptionProtocol: 'Протокол шифрації',
+    sessionKey: 'Сеансовий ключ',
+    publicKey: 'Публічний ключ',
+    certificateValid: 'Сертифікат дійсний',
+    tlsVersion: 'Версія TLS',
+    cipherSuite: 'Набір шифрів',
+    
+    // IDS / Система виявлення вторгнень
+    intrusionDetection: 'Виявлення вторгнень',
+    idsActive: 'IDS активна',
+    anomalyDetection: 'Виявлення аномалій',
+    behavioralAnalysis: 'Поведінковий аналіз',
+    threatIntelligence: 'Розвідка загроз',
+    blockedAttacks: 'Заблоковано атак',
+    
+    // Attack Types / Типи атак
+    sensorDataAnomaly: 'Аномалія даних сенсорів',
+    unauthorizedApiAccess: 'Несанкціонований доступ до API',
+    abnormalRequestPattern: 'Аномальний шаблон запитів',
+    dataPoison: 'Отруєння даних',
+    sensorSpoof: 'Підміна сенсорів',
+    gradualDrift: 'Поступовий зсув',
+    bruteForce: 'Brute Force атака',
+    sqlInjection: 'SQL ін\'єкція',
+    xssAttack: 'XSS атака',
+    dosAttack: 'DoS атака',
+    mitm: 'Man-in-the-Middle',
+    replayAttack: 'Replay атака',
+    
+    // Data Page / Сторінка даних
+    environmentalData: 'Дані середовища',
+    realTimeSensorData: 'Дані сенсорів у реальному часі',
+    liveView: 'Наживо',
+    sensorTrends: 'Тренди сенсорів',
+    sensorStatus: 'Статус сенсорів',
+    online: 'Онлайн',
+    offline: 'Офлайн',
+    excellent: 'Відмінно',
+    optimal: 'Оптимально',
+    good: 'Добре',
+    slightlyAcidic: 'Злегка кисле',
+    
+    // AI Chat / AI Чат
+    chatWithPlant: 'Чат з вашою рослиною',
+    dailyMessages: 'Щоденних повідомлень',
+    freeMessagesLeft: 'Безкоштовних залишилось',
+    upgradeToPremium: 'Оновити до Преміум',
+    getUnlimitedMessages: 'Отримайте безлімітні повідомлення та розширені AI функції!',
+    unlimitedAiChat: 'Безлімітний AI чат',
+    advancedPlantAnalysis: 'Розширений аналіз рослин',
+    prioritySupport: 'Пріоритетна підтримка',
+    customPlantAvatars: 'Кастомні аватари рослин',
+    upgradeNow: 'Оновити зараз',
+    typeYourMessage: 'Введіть повідомлення...',
+    
+    // Tasks / Завдання
+    tasksAndQuests: 'Завдання та квести',
+    completeTasksToHelp: 'Виконуйте завдання для допомоги вашій рослині',
+    activeQuest: 'Активний квест',
+    timeRemaining: 'Залишилось часу',
+    rewards: 'Нагороди',
+    dailyQuests: 'Щоденні квести',
+    waterYourPlant: 'Полийте рослину',
+    checkAllSensors: 'Перевірте всі сенсори',
+    chatWithLeafy: 'Поспілкуйтесь з Ліфі',
+    keepPhOptimal: 'Підтримуйте оптимальний pH',
+    
+    // Shop / Магазин
+    shopTitle: 'Магазин',
+    buyItemsForPlant: 'Купуйте предмети для вашої рослини',
+    allItems: 'Всі товари',
+    clothing: 'Одяг',
+    accessories: 'Аксесуари',
+    treats: 'Смаколики',
+    decorations: 'Декорації',
+    premiumTokens: 'Преміум токени',
+    buy: 'Купити',
+    owned: 'Куплено',
+    equip: 'Одягнути',
+    equipped: 'Одягнено',
+    
+    // Pro Plan / Pro план
+    proPlan: 'Pro план',
+    proFeatures: 'Функції Pro',
+    unlimitedMessages: 'Безлімітні повідомлення',
+    advancedAnalytics: 'Розширена аналітика',
+    priorityAlerts: 'Пріоритетні сповіщення',
+    customThemes: 'Кастомні теми',
+    noAds: 'Без реклами',
+    exclusiveItems: 'Ексклюзивні предмети',
+    monthlyPrice: '/місяць',
+    yearlyPrice: '/рік',
+    bestValue: 'Найкраща ціна',
+    subscribe: 'Підписатися',
+    currentPlan: 'Поточний план',
+    freePlan: 'Безкоштовний',
+    
+    // Settings / Налаштування
+    settingsTitle: 'Налаштування',
+    managePreferences: 'Керуйте вашими налаштуваннями',
+    language: 'Мова',
+    theme: 'Тема',
+    light: 'Світла',
+    dark: 'Темна',
+    sound: 'Звук',
+    enabled: 'Увімкнено',
+    disabled: 'Вимкнено',
+    notifications: 'Сповіщення',
+    autoWatering: 'Автополив',
+    privacyMode: 'Режим приватності',
+    keepDataLocal: 'Зберігати дані локально',
+    account: 'Акаунт',
+    email: 'Email',
+    memberSince: 'Учасник з',
+    logout: 'Вийти',
+    
+    // System Status / Статус системи
+    systemStatus: 'Статус системи',
+    allSystemsOnline: 'Всі системи онлайн',
+    grower: 'Городник',
+    
+    // Time / Час
+    minAgo: 'хв тому',
+    hoursAgo: 'год тому',
+    seconds: 'сек',
+    minutes: 'хв',
+    
+    // Sounds / Звуки
+    soundEffects: 'Звукові ефекти',
+    notificationSound: 'Звук сповіщень',
+    actionSound: 'Звук дій',
+    ambientSound: 'Фонові звуки',
+    
+    // GPIO / Керування пінами
+    gpioPin4: 'Пін 4 (Мотор поливу)',
+    gpioPin27: 'Пін 27 (УФ лампа)',
+    pinActive: 'Пін активний',
+    pinInactive: 'Пін неактивний',
+  },
+  
+  ro: {
+    // Navigation
+    plant: 'Plantă',
+    tasks: 'Sarcini',
+    data: 'Date',
+    aiChat: 'Chat AI',
+    shop: 'Magazin',
+    security: 'Securitate',
+    settings: 'Setări',
+    
+    // Welcome
+    welcomeBack: 'Bine ai revenit, Grădinar!',
+    plantHappyHealthy: 'Planta ta este fericită și sănătoasă astăzi',
+    
+    // Plant Stats
+    health: 'Sănătate',
+    mood: 'Dispoziție',
+    trustScore: 'Scor de încredere',
+    level: 'Nivel',
+    
+    // Moods
+    happy: 'Fericită',
+    content: 'Mulțumită',
+    thirsty: 'Însetată',
+    sick: 'Bolnavă',
+    sleeping: 'Doarme',
+    excited: 'Entuziasmată',
+    
+    // Quick Actions
+    quickActions: 'Acțiuni rapide',
+    water: 'Udă',
+    stopWater: 'Oprește',
+    uvLightOn: 'Lumină UV ON',
+    uvLightOff: 'Lumină UV OFF',
+    
+    // Environment
+    environment: 'Mediu',
+    temperature: 'Temperatură',
+    humidity: 'Umiditate',
+    soilMoisture: 'Umiditate sol',
+    phLevel: 'Nivel pH',
+    ecLevel: 'Nivel EC',
+    npkLevel: 'Nivel NPK',
+    viewAllData: 'Vezi toate datele',
+    
+    // Leafy Messages
+    leafySays: 'Leafy spune:',
+    leafyHappy: 'Mulțumesc pentru îngrijire! Mă simt minunat astăzi!',
+    leafyThirsty: 'Am nevoie de apă, te rog!',
+    leafySick: 'Am nevoie de ajutor, verifică senzorii!',
+    
+    // Security
+    securityCenter: 'Centru de securitate',
+    aiPoweredProtection: 'Protecție AI Zero-Trust',
+    overallTrustScore: 'Scor general de încredere',
+    threatLevel: 'Nivel de amenințare',
+    devicesOnline: 'Dispozitive online',
+    lastScan: 'Ultima scanare',
+    low: 'Scăzut',
+    medium: 'Mediu',
+    high: 'Ridicat',
+    critical: 'Critic',
+    secure: 'Securizat',
+    allDevicesSecured: 'Toate dispozitivele securizate',
+    nextScanIn: 'Următoarea scanare în',
+    threatActivity: 'Activitate amenințări (24h)',
+    recentThreats: 'Amenințări recente',
+    viewAllThreats: 'Vezi toate amenințările',
+    securityActions: 'Acțiuni de securitate',
+    scanNow: 'Scanează acum',
+    runSecurityScan: 'Rulează scanare',
+    quarantineDevice: 'Carantină dispozitiv',
+    isolateSuspicious: 'Izolează dispozitiv suspect',
+    viewLogs: 'Vezi jurnale',
+    securityEventLogs: 'Jurnale evenimente',
+    firewallRules: 'Reguli firewall',
+    manageAccessRules: 'Gestionează reguli acces',
+    attackSimulator: 'Simulator atacuri',
+    testDefenses: 'Testează apărarea serei tale',
+    simulateAttack: 'Simulează atac',
+    stopSimulation: 'Oprește simularea',
+    
+    // Triple Encryption
+    tripleEncryption: 'Criptare triplă',
+    bankGradeProtection: 'Protecție de nivel bancar',
+    encryptionLayer1: 'Nivel 1: AES-256-GCM',
+    encryptionLayer2: 'Nivel 2: ChaCha20-Poly1305',
+    encryptionLayer3: 'Nivel 3: RSA-4096 + ECDSA',
+    encryptionStatus: 'Status criptare',
+    encryptionActive: 'Criptare activă',
+    dataEncrypted: 'Date criptate',
+    keyRotation: 'Rotație chei',
+    lastKeyRotation: 'Ultima rotație',
+    nextKeyRotation: 'Următoarea rotație',
+    viewEncryptionDetails: 'Detalii criptare',
+    encryptionProtocol: 'Protocol criptare',
+    sessionKey: 'Cheie sesiune',
+    publicKey: 'Cheie publică',
+    certificateValid: 'Certificat valid',
+    tlsVersion: 'Versiune TLS',
+    cipherSuite: 'Set de cifruri',
+    
+    // IDS
+    intrusionDetection: 'Detectare intruziuni',
+    idsActive: 'IDS activ',
+    anomalyDetection: 'Detectare anomalii',
+    behavioralAnalysis: 'Analiză comportamentală',
+    threatIntelligence: 'Informații amenințări',
+    blockedAttacks: 'Atacuri blocate',
+    
+    // Attack Types
+    sensorDataAnomaly: 'Anomalie date senzori',
+    unauthorizedApiAccess: 'Acces API neautorizat',
+    abnormalRequestPattern: 'Model cereri anormal',
+    dataPoison: 'Otrăvire date',
+    sensorSpoof: 'Falsificare senzori',
+    gradualDrift: 'Derivare graduală',
+    bruteForce: 'Atac Brute Force',
+    sqlInjection: 'Injecție SQL',
+    xssAttack: 'Atac XSS',
+    dosAttack: 'Atac DoS',
+    mitm: 'Man-in-the-Middle',
+    replayAttack: 'Atac Replay',
+    
+    // Data Page
+    environmentalData: 'Date de mediu',
+    realTimeSensorData: 'Date senzori în timp real',
+    liveView: 'Live',
+    sensorTrends: 'Tendințe senzori',
+    sensorStatus: 'Status senzori',
+    online: 'Online',
+    offline: 'Offline',
+    excellent: 'Excelent',
+    optimal: 'Optim',
+    good: 'Bun',
+    slightlyAcidic: 'Ușor acid',
+    
+    // AI Chat
+    chatWithPlant: 'Chat cu planta ta',
+    dailyMessages: 'Mesaje zilnice',
+    freeMessagesLeft: 'Mesaje gratuite rămase',
+    upgradeToPremium: 'Upgrade la Premium',
+    getUnlimitedMessages: 'Obține mesaje nelimitate și funcții AI avansate!',
+    unlimitedAiChat: 'Chat AI nelimitat',
+    advancedPlantAnalysis: 'Analiză avansată plante',
+    prioritySupport: 'Suport prioritar',
+    customPlantAvatars: 'Avatare personalizate',
+    upgradeNow: 'Upgrade acum',
+    typeYourMessage: 'Scrie mesajul...',
+    
+    // Tasks
+    tasksAndQuests: 'Sarcini și misiuni',
+    completeTasksToHelp: 'Completează sarcini pentru a ajuta planta',
+    activeQuest: 'Misiune activă',
+    timeRemaining: 'Timp rămas',
+    rewards: 'Recompense',
+    dailyQuests: 'Misiuni zilnice',
+    waterYourPlant: 'Udă planta',
+    checkAllSensors: 'Verifică toți senzorii',
+    chatWithLeafy: 'Vorbește cu Leafy',
+    keepPhOptimal: 'Menține pH-ul optim',
+    
+    // Shop
+    shopTitle: 'Magazin',
+    buyItemsForPlant: 'Cumpără articole pentru planta ta',
+    allItems: 'Toate articolele',
+    clothing: 'Îmbrăcăminte',
+    accessories: 'Accesorii',
+    treats: 'Tratamente',
+    decorations: 'Decorațiuni',
+    premiumTokens: 'Tokenuri premium',
+    buy: 'Cumpără',
+    owned: 'Deținut',
+    equip: 'Echipează',
+    equipped: 'Echipat',
+    
+    // Pro Plan
+    proPlan: 'Plan Pro',
+    proFeatures: 'Funcții Pro',
+    unlimitedMessages: 'Mesaje nelimitate',
+    advancedAnalytics: 'Analize avansate',
+    priorityAlerts: 'Alerte prioritare',
+    customThemes: 'Teme personalizate',
+    noAds: 'Fără reclame',
+    exclusiveItems: 'Articole exclusive',
+    monthlyPrice: '/lună',
+    yearlyPrice: '/an',
+    bestValue: 'Cea mai bună valoare',
+    subscribe: 'Abonează-te',
+    currentPlan: 'Plan curent',
+    freePlan: 'Gratuit',
+    
+    // Settings
+    settingsTitle: 'Setări',
+    managePreferences: 'Gestionează preferințele',
+    language: 'Limbă',
+    theme: 'Temă',
+    light: 'Deschisă',
+    dark: 'Întunecată',
+    sound: 'Sunet',
+    enabled: 'Activat',
+    disabled: 'Dezactivat',
+    notifications: 'Notificări',
+    autoWatering: 'Udare automată',
+    privacyMode: 'Mod privat',
+    keepDataLocal: 'Păstrează datele local',
+    account: 'Cont',
+    email: 'Email',
+    memberSince: 'Membru din',
+    logout: 'Deconectare',
+    
+    // System Status
+    systemStatus: 'Status sistem',
+    allSystemsOnline: 'Toate sistemele online',
+    grower: 'Grădinar',
+    
+    // Time
+    minAgo: 'min în urmă',
+    hoursAgo: 'ore în urmă',
+    seconds: 'sec',
+    minutes: 'min',
+    
+    // Sounds
+    soundEffects: 'Efecte sonore',
+    notificationSound: 'Sunet notificări',
+    actionSound: 'Sunet acțiuni',
+    ambientSound: 'Sunete ambient',
+    
+    // GPIO
+    gpioPin4: 'Pin 4 (Motor udare)',
+    gpioPin27: 'Pin 27 (Lampă UV)',
+    pinActive: 'Pin activ',
+    pinInactive: 'Pin inactiv',
+  },
+  
+  en: {
+    // Navigation
+    plant: 'Plant',
+    tasks: 'Tasks',
+    data: 'Data',
+    aiChat: 'AI Chat',
+    shop: 'Shop',
+    security: 'Security',
+    settings: 'Settings',
+    
+    // Welcome
+    welcomeBack: 'Welcome back, Grower!',
+    plantHappyHealthy: 'Your plant is happy and healthy today',
+    
+    // Plant Stats
+    health: 'Health',
+    mood: 'Mood',
+    trustScore: 'Trust Score',
+    level: 'Level',
+    
+    // Moods
+    happy: 'Happy',
+    content: 'Content',
+    thirsty: 'Thirsty',
+    sick: 'Sick',
+    sleeping: 'Sleeping',
+    excited: 'Excited',
+    
+    // Quick Actions
+    quickActions: 'Quick Actions',
+    water: 'Water',
+    stopWater: 'Stop',
+    uvLightOn: 'UV Light ON',
+    uvLightOff: 'UV Light OFF',
+    
+    // Environment
+    environment: 'Environment',
+    temperature: 'Temperature',
+    humidity: 'Humidity',
+    soilMoisture: 'Soil Moisture',
+    phLevel: 'pH Level',
+    ecLevel: 'EC Level',
+    npkLevel: 'NPK Level',
+    viewAllData: 'View All Data',
+    
+    // Leafy Messages
+    leafySays: 'Leafy says:',
+    leafyHappy: 'Thank you for taking such good care of me! I feel amazing today!',
+    leafyThirsty: 'I need water, please!',
+    leafySick: 'I need help, please check the sensors!',
+    
+    // Security
+    securityCenter: 'Security Center',
+    aiPoweredProtection: 'AI-Powered Zero-Trust Protection',
+    overallTrustScore: 'Overall Trust Score',
+    threatLevel: 'Threat Level',
+    devicesOnline: 'Devices Online',
+    lastScan: 'Last Scan',
+    low: 'Low',
+    medium: 'Medium',
+    high: 'High',
+    critical: 'Critical',
+    secure: 'Secure',
+    allDevicesSecured: 'All devices secured',
+    nextScanIn: 'Next scan in',
+    threatActivity: 'Threat Activity (24h)',
+    recentThreats: 'Recent Threats',
+    viewAllThreats: 'View All Threats',
+    securityActions: 'Security Actions',
+    scanNow: 'Scan Now',
+    runSecurityScan: 'Run security scan',
+    quarantineDevice: 'Quarantine Device',
+    isolateSuspicious: 'Isolate suspicious device',
+    viewLogs: 'View Logs',
+    securityEventLogs: 'Security event logs',
+    firewallRules: 'Firewall Rules',
+    manageAccessRules: 'Manage access rules',
+    attackSimulator: 'Attack Simulator',
+    testDefenses: 'Test your greenhouse defenses',
+    simulateAttack: 'Simulate Attack',
+    stopSimulation: 'Stop Simulation',
+    
+    // Triple Encryption
+    tripleEncryption: 'Triple Encryption',
+    bankGradeProtection: 'Bank-Grade Protection',
+    encryptionLayer1: 'Layer 1: AES-256-GCM',
+    encryptionLayer2: 'Layer 2: ChaCha20-Poly1305',
+    encryptionLayer3: 'Layer 3: RSA-4096 + ECDSA',
+    encryptionStatus: 'Encryption Status',
+    encryptionActive: 'Encryption Active',
+    dataEncrypted: 'Data Encrypted',
+    keyRotation: 'Key Rotation',
+    lastKeyRotation: 'Last Key Rotation',
+    nextKeyRotation: 'Next Rotation',
+    viewEncryptionDetails: 'Encryption Details',
+    encryptionProtocol: 'Encryption Protocol',
+    sessionKey: 'Session Key',
+    publicKey: 'Public Key',
+    certificateValid: 'Certificate Valid',
+    tlsVersion: 'TLS Version',
+    cipherSuite: 'Cipher Suite',
+    
+    // IDS
+    intrusionDetection: 'Intrusion Detection',
+    idsActive: 'IDS Active',
+    anomalyDetection: 'Anomaly Detection',
+    behavioralAnalysis: 'Behavioral Analysis',
+    threatIntelligence: 'Threat Intelligence',
+    blockedAttacks: 'Blocked Attacks',
+    
+    // Attack Types
+    sensorDataAnomaly: 'Sensor Data Anomaly',
+    unauthorizedApiAccess: 'Unauthorized API Access',
+    abnormalRequestPattern: 'Abnormal Request Pattern',
+    dataPoison: 'Data Poison',
+    sensorSpoof: 'Sensor Spoof',
+    gradualDrift: 'Gradual Drift',
+    bruteForce: 'Brute Force Attack',
+    sqlInjection: 'SQL Injection',
+    xssAttack: 'XSS Attack',
+    dosAttack: 'DoS Attack',
+    mitm: 'Man-in-the-Middle',
+    replayAttack: 'Replay Attack',
+    
+    // Data Page
+    environmentalData: 'Environmental Data',
+    realTimeSensorData: 'Real-time sensor data and analytics',
+    liveView: 'Live View',
+    sensorTrends: 'Sensor Trends',
+    sensorStatus: 'Sensor Status',
+    online: 'Online',
+    offline: 'Offline',
+    excellent: 'Excellent',
+    optimal: 'Optimal',
+    good: 'Good',
+    slightlyAcidic: 'Slightly Acidic',
+    
+    // AI Chat
+    chatWithPlant: 'Chat with your plant companion',
+    dailyMessages: 'Daily Messages',
+    freeMessagesLeft: 'Free messages left',
+    upgradeToPremium: 'Upgrade to Premium',
+    getUnlimitedMessages: 'Get unlimited messages and advanced AI features!',
+    unlimitedAiChat: 'Unlimited AI Chat',
+    advancedPlantAnalysis: 'Advanced Plant Analysis',
+    prioritySupport: 'Priority Support',
+    customPlantAvatars: 'Custom Plant Avatars',
+    upgradeNow: 'Upgrade Now',
+    typeYourMessage: 'Type your message...',
+    
+    // Tasks
+    tasksAndQuests: 'Tasks & Quests',
+    completeTasksToHelp: 'Complete tasks to help your plant grow!',
+    activeQuest: 'Active Quest',
+    timeRemaining: 'Time Remaining',
+    rewards: 'Rewards',
+    dailyQuests: 'Daily Quests',
+    waterYourPlant: 'Water your plant',
+    checkAllSensors: 'Check all sensors',
+    chatWithLeafy: 'Chat with Leafy',
+    keepPhOptimal: 'Keep pH in optimal range',
+    
+    // Shop
+    shopTitle: 'Shop',
+    buyItemsForPlant: 'Buy items for your plant!',
+    allItems: 'All Items',
+    clothing: 'Clothing',
+    accessories: 'Accessories',
+    treats: 'Treats',
+    decorations: 'Decorations',
+    premiumTokens: 'Premium Tokens',
+    buy: 'Buy',
+    owned: 'Owned',
+    equip: 'Equip',
+    equipped: 'Equipped',
+    
+    // Pro Plan
+    proPlan: 'Pro Plan',
+    proFeatures: 'Pro Features',
+    unlimitedMessages: 'Unlimited Messages',
+    advancedAnalytics: 'Advanced Analytics',
+    priorityAlerts: 'Priority Alerts',
+    customThemes: 'Custom Themes',
+    noAds: 'No Ads',
+    exclusiveItems: 'Exclusive Items',
+    monthlyPrice: '/month',
+    yearlyPrice: '/year',
+    bestValue: 'Best Value',
+    subscribe: 'Subscribe',
+    currentPlan: 'Current Plan',
+    freePlan: 'Free',
+    
+    // Settings
+    settingsTitle: 'Settings',
+    managePreferences: 'Manage your preferences',
+    language: 'Language',
+    theme: 'Theme',
+    light: 'Light',
+    dark: 'Dark',
+    sound: 'Sound',
+    enabled: 'Enabled',
+    disabled: 'Disabled',
+    notifications: 'Notifications',
+    autoWatering: 'Auto Watering',
+    privacyMode: 'Privacy Mode',
+    keepDataLocal: 'Keep all data local and private',
+    account: 'Account',
+    email: 'Email',
+    memberSince: 'Member Since',
+    logout: 'Logout',
+    
+    // System Status
+    systemStatus: 'System Status',
+    allSystemsOnline: 'All Systems Online',
+    grower: 'Grower',
+    
+    // Time
+    minAgo: 'min ago',
+    hoursAgo: 'hours ago',
+    seconds: 'sec',
+    minutes: 'min',
+    
+    // Sounds
+    soundEffects: 'Sound Effects',
+    notificationSound: 'Notification Sound',
+    actionSound: 'Action Sound',
+    ambientSound: 'Ambient Sound',
+    
+    // GPIO
+    gpioPin4: 'Pin 4 (Water Motor)',
+    gpioPin27: 'Pin 27 (UV Lamp)',
+    pinActive: 'Pin Active',
+    pinInactive: 'Pin Inactive',
+  },
+  
+  es: {
+    // Navigation
+    plant: 'Planta',
+    tasks: 'Tareas',
+    data: 'Datos',
+    aiChat: 'Chat IA',
+    shop: 'Tienda',
+    security: 'Seguridad',
+    settings: 'Ajustes',
+    
+    // Welcome
+    welcomeBack: '¡Bienvenido, Jardinero!',
+    plantHappyHealthy: 'Tu planta está feliz y saludable hoy',
+    
+    // Plant Stats
+    health: 'Salud',
+    mood: 'Estado',
+    trustScore: 'Puntuación de confianza',
+    level: 'Nivel',
+    
+    // Moods
+    happy: 'Feliz',
+    content: 'Contenta',
+    thirsty: 'Sedienta',
+    sick: 'Enferma',
+    sleeping: 'Durmiendo',
+    excited: 'Emocionada',
+    
+    // Quick Actions
+    quickActions: 'Acciones rápidas',
+    water: 'Regar',
+    stopWater: 'Parar',
+    uvLightOn: 'Luz UV ON',
+    uvLightOff: 'Luz UV OFF',
+    
+    // Environment
+    environment: 'Ambiente',
+    temperature: 'Temperatura',
+    humidity: 'Humedad',
+    soilMoisture: 'Humedad del suelo',
+    phLevel: 'Nivel pH',
+    ecLevel: 'Nivel EC',
+    npkLevel: 'Nivel NPK',
+    viewAllData: 'Ver todos los datos',
+    
+    // Leafy Messages
+    leafySays: 'Leafy dice:',
+    leafyHappy: '¡Gracias por cuidarme tan bien! ¡Me siento increíble hoy!',
+    leafyThirsty: '¡Necesito agua, por favor!',
+    leafySick: '¡Necesito ayuda, por favor revisa los sensores!',
+    
+    // Security
+    securityCenter: 'Centro de seguridad',
+    aiPoweredProtection: 'Protección IA Zero-Trust',
+    overallTrustScore: 'Puntuación de confianza general',
+    threatLevel: 'Nivel de amenaza',
+    devicesOnline: 'Dispositivos en línea',
+    lastScan: 'Último escaneo',
+    low: 'Bajo',
+    medium: 'Medio',
+    high: 'Alto',
+    critical: 'Crítico',
+    secure: 'Seguro',
+    allDevicesSecured: 'Todos los dispositivos asegurados',
+    nextScanIn: 'Próximo escaneo en',
+    threatActivity: 'Actividad de amenazas (24h)',
+    recentThreats: 'Amenazas recientes',
+    viewAllThreats: 'Ver todas las amenazas',
+    securityActions: 'Acciones de seguridad',
+    scanNow: 'Escanear ahora',
+    runSecurityScan: 'Ejecutar escaneo',
+    quarantineDevice: 'Cuarentena dispositivo',
+    isolateSuspicious: 'Aislar dispositivo sospechoso',
+    viewLogs: 'Ver registros',
+    securityEventLogs: 'Registros de eventos',
+    firewallRules: 'Reglas de firewall',
+    manageAccessRules: 'Gestionar reglas de acceso',
+    attackSimulator: 'Simulador de ataques',
+    testDefenses: 'Prueba las defensas de tu invernadero',
+    simulateAttack: 'Simular ataque',
+    stopSimulation: 'Detener simulación',
+    
+    // Triple Encryption
+    tripleEncryption: 'Cifrado triple',
+    bankGradeProtection: 'Protección de nivel bancario',
+    encryptionLayer1: 'Capa 1: AES-256-GCM',
+    encryptionLayer2: 'Capa 2: ChaCha20-Poly1305',
+    encryptionLayer3: 'Capa 3: RSA-4096 + ECDSA',
+    encryptionStatus: 'Estado del cifrado',
+    encryptionActive: 'Cifrado activo',
+    dataEncrypted: 'Datos cifrados',
+    keyRotation: 'Rotación de claves',
+    lastKeyRotation: 'Última rotación',
+    nextKeyRotation: 'Próxima rotación',
+    viewEncryptionDetails: 'Detalles del cifrado',
+    encryptionProtocol: 'Protocolo de cifrado',
+    sessionKey: 'Clave de sesión',
+    publicKey: 'Clave pública',
+    certificateValid: 'Certificado válido',
+    tlsVersion: 'Versión TLS',
+    cipherSuite: 'Suite de cifrado',
+    
+    // IDS
+    intrusionDetection: 'Detección de intrusiones',
+    idsActive: 'IDS activo',
+    anomalyDetection: 'Detección de anomalías',
+    behavioralAnalysis: 'Análisis de comportamiento',
+    threatIntelligence: 'Inteligencia de amenazas',
+    blockedAttacks: 'Ataques bloqueados',
+    
+    // Attack Types
+    sensorDataAnomaly: 'Anomalía de datos del sensor',
+    unauthorizedApiAccess: 'Acceso API no autorizado',
+    abnormalRequestPattern: 'Patrón de solicitud anormal',
+    dataPoison: 'Envenenamiento de datos',
+    sensorSpoof: 'Suplantación de sensores',
+    gradualDrift: 'Deriva gradual',
+    bruteForce: 'Ataque de fuerza bruta',
+    sqlInjection: 'Inyección SQL',
+    xssAttack: 'Ataque XSS',
+    dosAttack: 'Ataque DoS',
+    mitm: 'Man-in-the-Middle',
+    replayAttack: 'Ataque de repetición',
+    
+    // Data Page
+    environmentalData: 'Datos ambientales',
+    realTimeSensorData: 'Datos de sensores en tiempo real',
+    liveView: 'En vivo',
+    sensorTrends: 'Tendencias de sensores',
+    sensorStatus: 'Estado de sensores',
+    online: 'En línea',
+    offline: 'Fuera de línea',
+    excellent: 'Excelente',
+    optimal: 'Óptimo',
+    good: 'Bueno',
+    slightlyAcidic: 'Ligeramente ácido',
+    
+    // AI Chat
+    chatWithPlant: 'Chatea con tu planta',
+    dailyMessages: 'Mensajes diarios',
+    freeMessagesLeft: 'Mensajes gratuitos restantes',
+    upgradeToPremium: 'Actualizar a Premium',
+    getUnlimitedMessages: '¡Obtén mensajes ilimitados y funciones IA avanzadas!',
+    unlimitedAiChat: 'Chat IA ilimitado',
+    advancedPlantAnalysis: 'Análisis avanzado de plantas',
+    prioritySupport: 'Soporte prioritario',
+    customPlantAvatars: 'Avatares personalizados',
+    upgradeNow: 'Actualizar ahora',
+    typeYourMessage: 'Escribe tu mensaje...',
+    
+    // Tasks
+    tasksAndQuests: 'Tareas y misiones',
+    completeTasksToHelp: '¡Completa tareas para ayudar a tu planta a crecer!',
+    activeQuest: 'Misión activa',
+    timeRemaining: 'Tiempo restante',
+    rewards: 'Recompensas',
+    dailyQuests: 'Misiones diarias',
+    waterYourPlant: 'Riega tu planta',
+    checkAllSensors: 'Revisa todos los sensores',
+    chatWithLeafy: 'Habla con Leafy',
+    keepPhOptimal: 'Mantén el pH óptimo',
+    
+    // Shop
+    shopTitle: 'Tienda',
+    buyItemsForPlant: '¡Compra artículos para tu planta!',
+    allItems: 'Todos los artículos',
+    clothing: 'Ropa',
+    accessories: 'Accesorios',
+    treats: 'Golosinas',
+    decorations: 'Decoraciones',
+    premiumTokens: 'Tokens premium',
+    buy: 'Comprar',
+    owned: 'Adquirido',
+    equip: 'Equipar',
+    equipped: 'Equipado',
+    
+    // Pro Plan
+    proPlan: 'Plan Pro',
+    proFeatures: 'Funciones Pro',
+    unlimitedMessages: 'Mensajes ilimitados',
+    advancedAnalytics: 'Analíticas avanzadas',
+    priorityAlerts: 'Alertas prioritarias',
+    customThemes: 'Temas personalizados',
+    noAds: 'Sin anuncios',
+    exclusiveItems: 'Artículos exclusivos',
+    monthlyPrice: '/mes',
+    yearlyPrice: '/año',
+    bestValue: 'Mejor valor',
+    subscribe: 'Suscribirse',
+    currentPlan: 'Plan actual',
+    freePlan: 'Gratis',
+    
+    // Settings
+    settingsTitle: 'Ajustes',
+    managePreferences: 'Gestiona tus preferencias',
+    language: 'Idioma',
+    theme: 'Tema',
+    light: 'Claro',
+    dark: 'Oscuro',
+    sound: 'Sonido',
+    enabled: 'Activado',
+    disabled: 'Desactivado',
+    notifications: 'Notificaciones',
+    autoWatering: 'Riego automático',
+    privacyMode: 'Modo privacidad',
+    keepDataLocal: 'Mantener datos locales y privados',
+    account: 'Cuenta',
+    email: 'Email',
+    memberSince: 'Miembro desde',
+    logout: 'Cerrar sesión',
+    
+    // System Status
+    systemStatus: 'Estado del sistema',
+    allSystemsOnline: 'Todos los sistemas en línea',
+    grower: 'Jardinero',
+    
+    // Time
+    minAgo: 'min atrás',
+    hoursAgo: 'horas atrás',
+    seconds: 'seg',
+    minutes: 'min',
+    
+    // Sounds
+    soundEffects: 'Efectos de sonido',
+    notificationSound: 'Sonido de notificaciones',
+    actionSound: 'Sonido de acciones',
+    ambientSound: 'Sonido ambiental',
+    
+    // GPIO
+    gpioPin4: 'Pin 4 (Motor de riego)',
+    gpioPin27: 'Pin 27 (Lámpara UV)',
+    pinActive: 'Pin activo',
+    pinInactive: 'Pin inactivo',
+  }
+}
+
+export function useTranslation(lang: Language) {
+  return translations[lang]
+}
