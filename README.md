@@ -448,7 +448,7 @@ Branch naming convention / Конвенція іменування гілок:
     │   Step 6: Encryption Check / Перевірка шифрування           │
     │   ├── TLS 1.3 verification / Перевірка TLS 1.3              │
     │   ├── Certificate validation / Валідація сертифіката        │
-    │   └── Key rotation check / Перевірка ротації ключів         │
+    │   └── Key rotation check / Перевірка ротації клю��ів         │
     │                                                             │
     │   Step 7: Audit Logging / Журналювання аудиту               │
     │   ├── Request logging / Логування запитів                   │
@@ -710,43 +710,70 @@ python manage.py createsuperuser
 python manage.py runserver 8000
 ```
 
-### Raspberry Pi
+### Raspberry Pi (Automatic Deployment)
+
+The easiest way to deploy on Raspberry Pi is using our automated script:
 
 ```bash
-# Update system / Оновлення системи
+# Download and run the deployment script
+curl -fsSL https://raw.githubusercontent.com/smartgrow/smartgrow-secureai/main/scripts/raspberry-pi-deploy.sh | bash
+
+# Or clone first and run locally
+git clone https://github.com/smartgrow/smartgrow-secureai.git
+cd smartgrow-secureai
+chmod +x scripts/raspberry-pi-deploy.sh
+./scripts/raspberry-pi-deploy.sh
+```
+
+**What the script does:**
+1. Updates Raspberry Pi OS
+2. Installs Node.js 20 LTS, Python 3, Nginx
+3. Configures Django backend with Gunicorn
+4. Builds Next.js frontend for production
+5. Sets up Nginx reverse proxy (single domain for both)
+6. Creates systemd services for auto-start
+7. Configures GPIO permissions
+
+### Raspberry Pi (Manual Installation)
+
+```bash
+# Update system
 sudo apt update && sudo apt upgrade -y
 
-# Install dependencies / Встановлення залежностей
-sudo apt install -y python3 python3-pip python3-venv git
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# Install dependencies
+sudo apt install -y python3 python3-pip python3-venv nginx git
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
+sudo npm install -g pnpm
 
-# Enable GPIO / Увімкнення GPIO
+# Enable GPIO
 sudo raspi-config
 # Navigate to: Interface Options -> I2C -> Enable
 # Navigate to: Interface Options -> SPI -> Enable
 
-# Install GPIO library / Встановлення бібліотеки GPIO
-sudo apt install -y python3-rpi.gpio python3-gpiozero
+# Install GPIO library
+sudo apt install -y pigpio python3-pigpio
+sudo systemctl enable pigpiod
+sudo systemctl start pigpiod
 
-# Clone repository / Клонування репозиторію
+# Clone repository
 git clone https://github.com/smartgrow/smartgrow-secureai.git
 cd smartgrow-secureai
 
 # === FRONTEND ===
-npm install
-cp .env.example .env.local
-npm run dev
+pnpm install
+pnpm build
 
 # === BACKEND ===
 cd backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pip install RPi.GPIO gpiozero  # GPIO libraries / Бібліотеки GPIO
-cp .env.example .env
+pip install RPi.GPIO gpiozero pigpio
+python manage.py migrate
+python manage.py collectstatic --noinput
 
-# Configure GPIO mode / Налаштування режиму GPIO
+# Configure GPIO mode
 # Edit .env: IOT_SIMULATION=False
 # Редагувати .env: IOT_SIMULATION=False
 
@@ -918,6 +945,55 @@ server {
         proxy_set_header Connection "upgrade";
     }
 }
+```
+
+---
+
+## Local Domain Setup (Raspberry Pi)
+
+To access your SmartGrow system via `smartgrow.local` instead of IP address:
+
+### Option 1: Automatic (mDNS/Avahi)
+
+```bash
+# Run the domain setup script
+chmod +x scripts/setup-local-domain.sh
+./scripts/setup-local-domain.sh
+```
+
+After running, access via: `http://raspberrypi.local` or `http://smartgrow.local`
+
+### Option 2: Manual hosts file (on client devices)
+
+**Windows** (Run Notepad as Administrator):
+```
+C:\Windows\System32\drivers\etc\hosts
+```
+Add line:
+```
+192.168.X.X    smartgrow.local
+```
+
+**macOS / Linux**:
+```bash
+sudo nano /etc/hosts
+# Add line:
+192.168.X.X    smartgrow.local
+```
+
+**Replace `192.168.X.X` with your Raspberry Pi IP address** (find with `hostname -I`)
+
+### Option 3: Router DNS (for entire network)
+
+1. Login to your router admin panel
+2. Find DNS or DHCP settings
+3. Add static DNS entry: `smartgrow.local` -> `[Pi IP Address]`
+
+### SSL Certificate (Optional)
+
+For public domains with HTTPS:
+```bash
+sudo certbot --nginx -d yourdomain.com -m your@email.com --agree-tos
 ```
 
 ---
@@ -1448,7 +1524,7 @@ Raspberry Pi GPIO Pinout:
 └─────────────────────────────────────┘
 
 Пін 27 - Ультрафіолетова лампа (реле)
-Пін 4  - Мотор/насос для поливу (реле)
+Пін 4  - Мотор/насос ��ля поливу (реле)
 ```
 
 ### Швидкий старт
